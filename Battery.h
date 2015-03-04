@@ -53,10 +53,10 @@ class Battery {
 		uint16_t voltage();
 
 	private:
-		uint16_t refVoltage = 5000;
-		uint16_t minVoltage = 3600;
-		uint16_t maxVoltage = 4200;
-		float dividerRatio = 2;
+		uint16_t refVoltage;
+		uint16_t minVoltage;
+		uint16_t maxVoltage;
+		float dividerRatio;
 		uint8_t sensePin;
 		uint8_t activationPin;
 };

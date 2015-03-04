@@ -49,13 +49,14 @@ uint8_t Battery::level() {
 
 uint16_t Battery::voltage() {
 	if (activationPin != 0xFF) {
-		digitalWrite(activationPin, LOW);
+		digitalWrite(activationPin, HIGH);
+		delayMicroseconds(10); // copes with slow switching activation circuits
 	}
 	analogRead(sensePin);
 	delay(2); // allow the ADC to stabilize
 	uint16_t reading = analogRead(sensePin) * dividerRatio * refVoltage;
 	if (activationPin != 0xFF) {
-		digitalWrite(activationPin, HIGH);
+		digitalWrite(activationPin, LOW);
 	}
 	return reading;
 }

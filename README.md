@@ -12,7 +12,7 @@ The library requires at least 1 analog pin (we will call this the `sense pin`) a
 
 Additionally you can provide a second pin (either analog or digital) to activate the battery measurement circuit (we call it the `activation pin`), useful in all those situation where you can sacrifice a pin to further increase your battery duration.
 
-If you want your readings to be more accurate we *strongly suggest* to calibrate the library providing your board reference voltage: most of the times you assume your board has exactly 5V between `Vcc` and `GND`, but this is rarely the case. To improve this we suggest to use the [https://github.com/rlogiacco/VoltageReference VoltageReference] library to obtain a better calibration value for all annalog readings.
+If you want your readings to be more accurate we *strongly suggest* to calibrate the library providing your board reference voltage: most of the times you assume your board has exactly 5V between `Vcc` and `GND`, but this is rarely the case. To improve this we suggest to use the [VoltageReference](https://github.com/rlogiacco/VoltageReference) library to obtain a better calibration value for all annalog readings.
 
 The `sense pin` wiring can vary depending on your battery configuration, but here are a few examples based on the assumption you are using a 5V board: in case of a 3.3V board you should be performing the necessary adjustments.
 

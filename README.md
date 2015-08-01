@@ -1,4 +1,4 @@
-# Battery
+# Battery [![Build Status](https://travis-ci.org/rlogiacco/BatterySense.svg?branch=master)](https://travis-ci.org/rlogiacco/BatterySense)
 This is a simple Arduino library to monitor battery consumption of your battery powered projects, being LiPo, LiIon, NiCd or any other battery type, single or multiple cells: if it can power your Arduino you can monitor it!
 
 The principle is simple: we are going to measure our battery capacity by measuring the voltage across the battery terminals.

@@ -37,7 +37,7 @@ void Battery::begin(uint16_t refVoltage, float dividerRatio) {
 }
 
 uint8_t Battery::level() {
-	int16_t voltageRead = this->voltage() - minVoltage;
+	int16_t voltageRead = this->voltage();
 	int16_t voltageLevel = voltageRead - minVoltage;
 	if (voltageLevel <= 0) {
 		return 0;

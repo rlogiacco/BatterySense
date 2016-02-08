@@ -23,12 +23,12 @@
 Battery::Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin, uint8_t activationPin) {
 	this->sensePin = sensePin;
 	this->activationPin = activationPin;
+	this->minVoltage = minVoltage;
+	this->maxVoltage = maxVoltage;
 }
 
 void Battery::begin(uint16_t refVoltage, float dividerRatio) {
 	this->refVoltage = refVoltage;
-	this->minVoltage = minVoltage;
-	this->maxVoltage = maxVoltage;
 	this->dividerRatio = dividerRatio;
 	pinMode(this->sensePin, INPUT);
 	if (this->activationPin < 0xFF) {

@@ -23,12 +23,12 @@
 Battery::Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin, uint8_t activationPin) {
 	this->sensePin = sensePin;
 	this->activationPin = activationPin;
+	this->minVoltage = minVoltage;
+	this->maxVoltage = maxVoltage;
 }
 
 void Battery::begin(uint16_t refVoltage, float dividerRatio) {
 	this->refVoltage = refVoltage;
-	this->minVoltage = minVoltage;
-	this->maxVoltage = maxVoltage;
 	this->dividerRatio = dividerRatio;
 	pinMode(this->sensePin, INPUT);
 	if (this->activationPin < 0xFF) {
@@ -37,13 +37,14 @@ void Battery::begin(uint16_t refVoltage, float dividerRatio) {
 }
 
 uint8_t Battery::level() {
-	int16_t voltageLevel = this->voltage() - minVoltage;
+	int16_t voltageRead = this->voltage();
+	int16_t voltageLevel = voltageRead - minVoltage;
 	if (voltageLevel <= 0) {
 		return 0;
-	} else if (voltageLevel >= maxVoltage) {
+	} else if (voltageRead >= maxVoltage) {
 		return 100;
 	} else {
-		return voltageLevel * 100 / (maxVoltage - minVoltage);
+		return (unsigned long)voltageLevel * 100 / (maxVoltage - minVoltage);
 	}
 }
 
@@ -54,7 +55,7 @@ uint16_t Battery::voltage() {
 	}
 	analogRead(sensePin);
 	delay(2); // allow the ADC to stabilize
-	uint16_t reading = analogRead(sensePin) * dividerRatio * refVoltage;
+	uint16_t reading = analogRead(sensePin) * dividerRatio * refVoltage / 1024;
 	if (activationPin != 0xFF) {
 		digitalWrite(activationPin, LOW);
 	}

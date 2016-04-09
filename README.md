@@ -1,6 +1,5 @@
 # Battery [![Build Status](https://travis-ci.org/nunonunes/BatterySense.svg?branch=master)](https://travis-ci.org/rlogiacco/BatterySense)
 
-This project is a fork of [the work](https://github.com/rlogiacco/BatterySense) done by [Roberto Lo Giacco](https://github.com/rlogiacco). There were a few minor fixes that I made to the library that the original author decided not to include in his repo, so I keep my version here.
 
 This is a simple Arduino library to monitor battery consumption of your battery powered projects, being LiPo, LiIon, NiCd or any other battery type, single or multiple cells: if it can power your Arduino you can monitor it!
 
@@ -8,14 +7,16 @@ The principle is simple: we are going to measure our battery capacity by measuri
 
 The big assumption here is that battery capacity is linearly correlated to its voltage: the assumption itself is wrong, but in most cases it's *close enough* to reality, especially when it comes to the battery higher capacity side.
 
-In reality the relation between battery capacity and its voltage is better represented by a curve and there are many factors affecting it.
+In reality the relation between battery capacity and its voltage is better represented by a curve and there are many factors affecting it: current drawn, temperature, age, etc...
+
+[!(http://www.philohome.com/batteries/discharge-750.gif)]
 
 ## How to
 The library requires at least 1 analog pin (we will call this the `sense pin`) and no less than 2 bits of info on your battery: the voltage you will consider the minimum acceptable level, below which your project/product becomes unreliable and should be shut down, and the maximum voltage you can expect when the battery is fully charged.
 
 Additionally you can provide a second pin (either analog or digital) to activate the battery measurement circuit (we call it the `activation pin`), useful in all those situation where you can sacrifice a pin to further increase your battery duration.
 
-If you want your readings to be more accurate we *strongly suggest* to calibrate the library providing your board reference voltage: most of the times you assume your board has exactly 5V between `Vcc` and `GND`, but this is rarely the case. To improve this we suggest to use the [VoltageReference](https://github.com/rlogiacco/VoltageReference) library to obtain a better calibration value for all annalog readings.
+If you want your readings to be more accurate we *strongly suggest* to calibrate the library providing your board reference voltage: most of the times you assume your board has exactly 5V between `Vcc` and `GND`, but this is rarely the case. To improve this we suggest to use the [VoltageReference](https://github.com/rlogiacco/VoltageReference) library to obtain a better calibration value for all analog readings.
 
 The `sense pin` wiring can vary depending on your battery configuration, but here are a few examples based on the assumption you are using a 5V board: in case of a 3.3V board you should be performing the necessary adjustments.
 

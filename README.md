@@ -100,7 +100,7 @@ If you have an unused pin on your Arduino it will be easy to limit this addition
                          +---------+
 ```
 
-In the above schematics **M1** is a circuit which can connect or disconnect the sensing circuit depending on the voltage on `ACT`: the most common and cheap circuit is made of a n-channel MOSFET *Q1*, a 10-500 Ohm resistor *R3* and a 5k-20k Ohm resistor *R4*:
+In the above schematics **M1** is a circuit which can connect or disconnect the sensing circuit depending on the voltage on `ACT`: the most common and cheap circuit is made of a n-channel MOSFET *Q1*, a 100-500 Ohm resistor *R3* and a 5k-20k Ohm resistor *R4*:
 
 ```
   VDIV

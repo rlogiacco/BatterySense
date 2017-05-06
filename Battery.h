@@ -25,6 +25,7 @@ class Battery {
 	public:
 		/**
 		 * Creates an instance to monitor battery voltage and level.
+		 * Initialization parameters depend on battery type and configuration.
 		 *
 		 * @param minVoltage is the voltage, expressed in millivolts, corresponding to an empty battery
 		 * @param maxVoltage is the voltage, expressed in millivolts, corresponding to a full battery

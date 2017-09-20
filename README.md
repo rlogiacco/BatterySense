@@ -14,6 +14,19 @@ In reality the relation between battery capacity and its voltage is better repre
 
 ![Battery discharge curves at 750 mA](http://www.philohome.com/batteries/discharge-750.gif)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [How to](#how-to)
+  - [Lesser than 5V, with voltage booster](#lesser-than-5v-with-voltage-booster)
+  - [Higher than 5V, with internal voltage regulator](#higher-than-5v-with-internal-voltage-regulator)
+  - [Higher than 5V, with external voltage regulator](#higher-than-5v-with-external-voltage-regulator)
+  - [Higher than 5V, activated on demand](#higher-than-5v-activated-on-demand)
+- [Voltage divider ratio](#voltage-divider-ratio)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## How to
 The library requires at least 1 analog pin (we will call this the `sense pin`) and no less than 2 bits of info on your battery: the voltage you will consider the minimum acceptable level, below which your project/product becomes unreliable and should be shut down, and the maximum voltage you can expect when the battery is fully charged.
 

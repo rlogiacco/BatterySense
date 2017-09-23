@@ -161,7 +161,7 @@ When determining the *ratio* don't stick with the resistors nominal values, inst
 here follow a few real case scenarios which can guide you in using this library.
 
 ### Single cell Li-Ion on 3.3V MCU
-As an example, for a single cell Li-Ion battery (4.2V - 3.7V) powering a `3.3V MCU`, you'll need to use a voltage divider with a ratio no less than `1.3`. Considering only E6 resistors, you can use a `4.7kΩ` (R1) and a `10kΩ` (R2) to set a ratio of `1.47`: this allows to measure batteries with a maximum voltage of `4.85V`, well within the swing of a Li-Ion. It's a little too current hungry for my tastes in an *alway-connected* configuration, but still ok. The minimum voltage to set is clearly the lowest safe value: if drain a Li-Ion below `3.7V` you risk to damage it, so your code should look like:
+As an example, for a single cell Li-Ion battery (4.2V - 3.7V) powering a `3.3V MCU`, you'll need to use a voltage divider with a ratio no less than `1.3`. Considering only E6 resistors, you can use a `4.7kΩ` (R1) and a `10kΩ` (R2) to set a ratio of `1.47`: this allows to measure batteries with a maximum voltage of `4.85V`, well within the swing of a Li-Ion. It's a little too current hungry for my tastes in an *always-connected* configuration, but still ok. The minimum voltage to set is clearly the lowest safe value: if drain a Li-Ion below `3.7V` you risk to damage it, so your code should look like:
 
 ```cpp
 Battery batt = Battery(3700, 4200, SENSE_PIN); // also specify an activationPin for on-demand configurations
@@ -172,7 +172,7 @@ void setup() {
 ```
 
 ### Double cell Li-Ion (2S) on 5V MCU
-For a double cell Li-Ion battery (8.4V - 7.4V) powering a `5V MCU`, you'll need to use a voltage divider with a ratio no less than `1.68`: you can use a `6.8kΩ` (R1) and a `10kΩ` (R2) to set the ratio *precisely* at `1.68`, perfect for our `8.4V` battery pack. The circuit will continuosly draw 0.5mA in an *alway-connected* configuration, if you can live with that. As we don't want to rouin our battery pack we'll have to set the minimum voltage to `7.4V` to avoid risking of permanent damages, meaning your code should look like:
+For a double cell Li-Ion battery (8.4V - 7.4V) powering a `5V MCU`, you'll need to use a voltage divider with a ratio no less than `1.68`: you can use a `6.8kΩ` (R1) and a `10kΩ` (R2) to set the ratio *precisely* at `1.68`, perfect for our `8.4V` battery pack. The circuit will continuosly draw 0.5mA in an *always-connected* configuration, if you can live with that. As we don't want to rouin our battery pack we'll have to set the minimum voltage to `7.4V` to avoid risking of permanent damages, meaning your code should look like:
 
 ```cpp
 Battery batt = Battery(7400, 8400, SENSE_PIN); // also specify an activationPin for on-demand configurations

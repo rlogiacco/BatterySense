@@ -168,6 +168,7 @@ Battery batt = Battery(3700, 4200, SENSE_PIN); // also specify an activationPin 
 
 void setup() {
   batt.begin(3300, 1.47);
+}
 ```
 
 ### Double cell Li-Ion (2S) on 5V MCU
@@ -178,6 +179,7 @@ Battery batt = Battery(7400, 8400, SENSE_PIN); // also specify an activationPin 
 
 void setup() {
   batt.begin(5000, 1.68);
+}
 ```
 
 ### 9V Alkaline on 5V MCU
@@ -188,4 +190,5 @@ Battery batt = Battery(6200, 9000, SENSE_PIN); // also specify an activationPin 
 
 void setup() {
   batt.begin(5000, 2.0);
+}
 ```

@@ -1,4 +1,4 @@
-​​Battery Sense [![Build Status][travis-status]][travis]
+Battery Sense [![Build Status][travis-status]][travis]
 =============
 [travis]: https://travis-ci.org/rlogiacco/BatterySense
 [travis-status]: https://travis-ci.org/rlogiacco/BatterySense.svg?branch=master
@@ -158,9 +158,9 @@ The *voltage divider total resistance*, made of `R1 + R2`, will determine the cu
 When determining the *ratio* don't stick with the resistors nominal values, instead, if possible, use a multimeter to actually measure their resistance so to improve your results: a `4.7kΩ` resistor could easily be a `4.75kΩ` in reality!
 
 ## Examples
-here follow a few real case scenarios which can guide you in using this library.
+Here follow a few real case scenarios which can guide you in using this library.
 
-### Single cell Li-Ion on 3.3V MCU
+### Single-cell Li-Ion on 3.3V MCU
 As an example, for a single cell Li-Ion battery (4.2V - 3.7V) powering a `3.3V MCU`, you'll need to use a voltage divider with a ratio no less than `1.3`. Considering only E6 resistors, you can use a `4.7kΩ` (R1) and a `10kΩ` (R2) to set a ratio of `1.47`: this allows to measure batteries with a maximum voltage of `4.85V`, well within the swing of a Li-Ion. It's a little too current hungry for my tastes in an *always-connected* configuration, but still ok. The minimum voltage to set is clearly the lowest safe value: if a Li-Ion is drained below `3.7V` the risk of permanent damage is high, so your code should look like:
 
 ```cpp
@@ -172,7 +172,7 @@ void setup() {
 ```
 
 ### Double cell Li-Ion (2S) on 5V MCU
-For a double cell Li-Ion battery (8.4V - 7.4V) powering a `5V MCU`, you'll need to use a voltage divider with a ratio no less than `1.68`: you can use a `6.8kΩ` (R1) and a `10kΩ` (R2) to set the ratio *precisely* at `1.68`, perfect for our `8.4V` battery pack. The circuit will continuosly draw 0.5mA in an *always-connected* configuration, if you can live with that. As we don't want to rouin our battery pack we'll have to set the minimum voltage to `7.4V` to avoid risking of permanent damages, meaning your code should look like:
+For a double cell Li-Ion battery (8.4V - 7.4V) powering a `5V MCU`, you'll need to use a voltage divider with a ratio no less than `1.68`: you can use a `6.8kΩ` (R1) and a `10kΩ` (R2) to set the ratio *precisely* at `1.68`, perfect for our `8.4V` battery pack. The circuit will continuously draw 0.5mA in an *always-connected* configuration, if you can live with that. As we don't want to ruin our battery pack we'll have to set the minimum voltage to `7.4V` to avoid risking of permanent damages, meaning your code should look like:
 
 ```cpp
 Battery batt = Battery(7400, 8400, SENSE_PIN); // also specify an activationPin for on-demand configurations
@@ -183,7 +183,7 @@ void setup() {
 ```
 
 ### 9V Alkaline on 5V MCU
-Another classic example might be a single 9V Alkaline battery (9V - 6V) powering a `5V MCU`. In this case you'll need to use a voltage divider with a ratio no less than `1.8` and, for sake of simplicity, we'll go for a nice round `2` ratio. Using a nice `10kΩ` both for R1 and R2 we'll be able to measure batteries with a maximum voltage of `10V` consuming only 0.45mA. The trick here is to determine when our battery should be considered empty: a 9V Alkaline, being a non-rechargeable one, can potentially go down to 0V, but it's hard our board can still be alive when this occurs. Assuming we are using a linear regulator to step down the battery voltage to power our board we'll have to account for the regulator voltage drop: assuming it's a `1.2V` drop, we might safely consider our battery empty when it reaches `6.2V` (5V + 1.2V), leading to the following code:
+Another classic example might be a single 9V Alkaline battery (9V - 6V) powering a `5V MCU`. In this case, you'll need to use a voltage divider with a ratio no less than `1.8` and, for sake of simplicity, we'll go for a nice round `2` ratio. Using a nice `10kΩ` both for R1 and R2 we'll be able to measure batteries with a maximum voltage of `10V` consuming only 0.45mA. The trick here is to determine when our battery should be considered empty: a 9V Alkaline, being a non-rechargeable one, can potentially go down to 0V, but it's hard our board can still be alive when this occurs. Assuming we are using a linear regulator to step down the battery voltage to power our board we'll have to account for the regulator voltage drop: assuming it's a `1.2V` drop, we might safely consider our battery empty when it reaches `6.2V` (5V + 1.2V), leading to the following code:
 
 ```cpp
 Battery batt = Battery(6200, 9000, SENSE_PIN); // also specify an activationPin for on-demand configurations

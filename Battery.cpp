@@ -43,6 +43,7 @@ uint8_t Battery::level() {
 		return 100;
 	} else {
 		return (unsigned long)(sense - minVoltage) * 100 / (maxVoltage - minVoltage);
+		//.85+(-37)(x-.45)^7-(x/3)
 	}
 }
 

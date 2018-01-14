@@ -36,13 +36,16 @@ void Battery::begin(uint16_t refVoltage, float dividerRatio) {
 }
 
 uint8_t Battery::level() {
-	int16_t sense = this->voltage();
-	if (sense <= minVoltage) {
+	this->level(this->voltage());
+}
+
+uint8_t Battery::level(uint16_t voltage) {
+	if (voltage <= minVoltage) {
 		return 0;
-	} else if (sense >= maxVoltage) {
+	} else if (voltage >= maxVoltage) {
 		return 100;
 	} else {
-		return (unsigned long)(sense - minVoltage) * 100 / (maxVoltage - minVoltage);
+		return (unsigned long)(voltage - minVoltage) * 100 / (maxVoltage - minVoltage);
 		//.85+(-37)(x-.45)^7-(x/3)
 	}
 }

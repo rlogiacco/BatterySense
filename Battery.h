@@ -46,6 +46,7 @@ class Battery {
 		 * completely full battery.
 		 */
 		uint8_t level();
+		uint8_t level(uint16_t voltage);
 
 		/**
 		 * Returns the current battery voltage in millivolts.

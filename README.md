@@ -106,28 +106,28 @@ If you have an unused pin on your Arduino it will be easy to limit this addition
                          +---------+
   BAT+ ---+--------- VIN |         |
           |              |         |
+         SW--------- ACT |         |
+          |              |         |
          R1              |         |
-          |              |         |
-          +------- SENSE |         |
           |              | Arduino |
-         R2              |         |
+          +------- SENSE |         |
           |              |         |
-         M1--------- ACT |         |
+         R2              |         |
           |              |         |
   BAT- ------------- GND |         |
                          +---------+
 ```
 
-In the above schematics **M1** is a circuit which can connect or disconnect the sensing circuit depending on the voltage on `ACT`: the most common and cheap circuit is made of an n-channel MOSFET *Q1*, a 100-500 Ohm resistor *R3* and a 5k-20k Ohm resistor *R4*:
+In the above schematics **SW** is a circuit which can connect or disconnect the sensing circuit depending on the voltage on `ACT`: the most common and cheap circuit is made of a p-channel MOSFET *Q1*, a 100-500 Ohm resistor *R3* and a 5k-20k Ohm resistor *R4*:
 
 ```
   VDIV
     |
-    Q1 --+-- R3 --- ACT
+    +----+
     |    |
     |   R4
     |    |
-    +----+
+    Q1 --+-- R3 --- ACT
     |
   BAT- 
 ```

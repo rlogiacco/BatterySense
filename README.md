@@ -118,19 +118,22 @@ If you have an unused pin on your Arduino it will be easy to limit this addition
                          +---------+
 ```
 
-In the above schematics **SW** is a circuit which can connect or disconnect the sensing circuit depending on the voltage on `ACT`: the most common and cheap circuit is made of a p-channel MOSFET *Q1*, a 100-500 Ohm resistor *R3* and a 5k-20k Ohm resistor *R4*:
+In the above schematics **SW** is a circuit which can connect or disconnect the sensing circuit depending on the voltage on `ACT`: the most common and cheap circuit is made of a p-channel MOSFET *Q1*, a PNP transistor *Q2* a 1k-4.7k Ohm resistor *R3* and a 5k-20k Ohm resistor *R4*:
 
 ```
-  VDIV
+  BAT+
     |
     +----+
     |    |
     |   R4
     |    |
-    Q1 --+-- R3 --- ACT
-    |
-  BAT- 
+    Q1 --Q2-- R3 --- ACT
+    |    |
+    |    |
+  VDIV  GND
 ```
+
+[Circuit simulation](http://tinyurl.com/y6v37hmd)
 
 ## Voltage divider ratio
 Whenever your battery voltage is above your board voltage you need a voltage divider to constraint your readings within the 0-5V range allowed by your Arduino and you will have to provide this library with its *ratio*.

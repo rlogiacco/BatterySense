@@ -14,6 +14,9 @@ install:
   
 script:
   - arduino --verify --board ${BOARD} $PWD/examples/BatteryMonitor/BatteryMonitor.ino
+  - arduino --verify --board ${BOARD} $PWD/examples/BetterApprox/BetterApprox.ino
+  - arduino --verify --board ${BOARD} $PWD/examples/CustomRatio/CustomRatio.ino
+  - arduino --verify --board ${BOARD} $PWD/examples/OnDemandDoubleLiIon/OnDemandDoubleLiIon.ino
   
 notifications:
   email:

@@ -1,11 +1,13 @@
 #include <Battery.h>
 
-Battery battery(3400, 4600, A0, 3);
-
+Battery battery(3000, 4200, A0);
+/**
+ * 1 cell li-ion/li-poly battery wired to A0, continuous sensing, sigmoidal mapping function, cut off at 3000mV
+ **/
 void setup() {
 	Serial.begin(9600);
 	while (!Serial);
-	battery.begin();
+	battery.begin(5000, 1.0, &Battery::sigmoidal);
 }
 
 void loop() {
@@ -16,7 +18,7 @@ void loop() {
 
 	Serial.print("Battery voltage is ");
 	Serial.print(battery.voltage());
-	Serial.print(" (");
+	Serial.print("mV (");
 	Serial.print(battery.level());
 	Serial.println("%)");
 }

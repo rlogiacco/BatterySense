@@ -1,15 +1,15 @@
 #include <Battery.h>
 
 Battery battery(7200, 8400, A0);
-/*
+/**
  * 2 cells (2S1P) li-ion/li-poly battery wired to A0, continuous sensing
  *
  *   +--------+
  *   |        |
  *   |       +-+
  *   |       | | 33k
- * -----     | |
- *           +-+
+ *   |       | |
+ * -----     +-+
  *  ---       |---------+ A0
  *   |       +-+
  *   |       | |
@@ -36,7 +36,7 @@ void loop() {
 
 	Serial.print("Battery voltage is ");
 	Serial.print(battery.voltage());
-	Serial.print(" (");
+	Serial.print("mV (");
 	Serial.print(battery.level());
-	Serial.println(")");
+	Serial.println("%)");
 }

@@ -8,7 +8,7 @@ Battery battery(6000, 8400, A0, 3, HIGH);
 void setup() {
 	Serial.begin(9600);
 	while (!Serial);
-	battery.begin(5000, 2.0, &sigmoidal, HIGH);
+	battery.begin(5000, 2.0, &sigmoidal);
 }
 
 void loop() {

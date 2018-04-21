@@ -26,13 +26,14 @@ Battery::Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin, uin
 	this->maxVoltage = maxVoltage;
 }
 
-void Battery::begin(uint16_t refVoltage, float dividerRatio, uint8_t (*mapFunction)(uint16_t, uint16_t, uint16_t)) {
+void Battery::begin(uint16_t refVoltage, float dividerRatio, mapFn_t mapFunction) {
 	this->refVoltage = refVoltage;
 	this->dividerRatio = dividerRatio;
 	pinMode(this->sensePin, INPUT);
 	if (this->activationPin < 0xFF) {
 		pinMode(this->activationPin, OUTPUT);
 	}
+	this->mapFunction = mapFunction ? mapFunction : &linear;
 }
 
 uint8_t Battery::level() {
@@ -61,32 +62,4 @@ uint16_t Battery::voltage() {
 		digitalWrite(activationPin, !activationMode);
 	}
 	return reading;
-}
-
-uint8_t Battery::sigmoidal(uint16_t voltage, uint16_t minVoltage, uint16_t maxVoltage) {
-	// plots of the functions below available at https://www.desmos.com/calculator/x0esk5bsrk
-	
-	// symmetric sigmoidal approximation (slow)
-	// uint8_t result = 110 - (110 / (1 + pow(1.468 * (voltage - minVoltage)/(maxVoltage - minVoltage), 6)));
-	
-	// symmetric sigmoidal approximation (steep)
-	// uint8_t result = 102 - (102 / (1 + pow(1.621 * (voltage - minVoltage)/(maxVoltage - minVoltage), 8.1)));
-	
-	// symmetric sigmoidal approximation (norm)
-	uint8_t result = 105 - (105 / (1 + pow(1.724 * (voltage - minVoltage)/(maxVoltage - minVoltage), 5.5)));
-
-	// asymmetric sigmoidal approximation
-	// uint8_t result = 101 - (101 / pow(1 + pow(1.33 * (voltage - minVoltage)/(maxVoltage - minVoltage) ,4.5), 3));
-	
-	return result >= 100 ? 100 : result;
-}
-
-// asymmetric sigmoidal approximation
-uint8_t Battery::asymSig(uint16_t voltage, uint16_t minVoltage, uint16_t maxVoltage) {
-	uint8_t result = 101 - (101 / pow(1 + pow(1.33 * (voltage - minVoltage)/(maxVoltage - minVoltage) ,4.5), 3));
-	return result >= 100 ? 100 : result;
-}
-
-uint8_t Battery::linear(uint16_t voltage, uint16_t minVoltage, uint16_t maxVoltage) {
-	return (unsigned long)(voltage - minVoltage) * 100 / (maxVoltage - minVoltage);
 }

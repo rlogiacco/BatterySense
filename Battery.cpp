@@ -19,9 +19,9 @@
 #include "Battery.h"
 #include <Arduino.h>
 
-Battery::Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin, uint8_t activationPin, uint8_t activationMode) {
+Battery::Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin) {
 	this->sensePin = sensePin;
-	this->activationPin = activationPin;
+	this->activationPin = 0xFF;
 	this->minVoltage = minVoltage;
 	this->maxVoltage = maxVoltage;
 }
@@ -34,6 +34,14 @@ void Battery::begin(uint16_t refVoltage, float dividerRatio, mapFn_t mapFunction
 		pinMode(this->activationPin, OUTPUT);
 	}
 	this->mapFunction = mapFunction ? mapFunction : &linear;
+}
+
+void Battery::onDemand(uint8_t activationPin, uint8_t activationMode) {
+	if (this->activationPin < 0xFF) {
+		this->activationMode = activationMode;
+		pinMode(this->activationPin, OUTPUT);
+		digitalWrite(activationPin, !activationMode);
+	}
 }
 
 uint8_t Battery::level() {

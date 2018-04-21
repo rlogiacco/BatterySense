@@ -46,10 +46,12 @@ What does that mean when it comes to measuring your battery level? We need to me
                                                +---------+
           +----------------------------- SENSE |         |
           |        +---------+                 |         |
+          |        |         |                 |         |
   BAT+ ---+--- IN+ |   5V    | OUT+ ------- 5V | Arduino |
                    | BOOSTER |                 |         |
   BAT- ------- IN- |         | OUT- ------ GND |         |
-                   +---------+                 +---------+
+                   +---------+                 |         |
+                                               +---------+
 ```
 
 ### Higher than 5V, with internal voltage regulator
@@ -85,7 +87,7 @@ Once again, to measure such batteries we need to hook our `sense pin` *before* i
 |         |        |         |              |         |
 |        R1        |         |              |         |
 |         |        |         |              |         |
-+---------+        |         | OUT+ ---- 5V | Arduino |
++---------+        |   REG   | OUT+ ---- 5V | Arduino |
           |        |         |              |         |
          R2        |         |              |         |
           |        |         |              |         |

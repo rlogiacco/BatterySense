@@ -3,6 +3,7 @@
 Battery battery(3000, 4200, A0);
 /**
  * 1 cell li-ion/li-poly battery wired to A0, continuous sensing, sigmoidal mapping function, cut off at 3000mV
+ * https://github.com/rlogiacco/BatterySense#lesser-than-5v-with-voltage-booster
  **/
 void setup() {
 	Serial.begin(9600);

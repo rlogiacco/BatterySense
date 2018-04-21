@@ -3,6 +3,7 @@
 Battery battery(7200, 8400, A0);
 /**
  * 2 cells (2S1P) li-ion/li-poly battery wired to A0, continuous sensing
+ * https://github.com/rlogiacco/BatterySense#higher-than-5v-with-internal-voltage-regulator
  *
  *   +--------+
  *   |        |

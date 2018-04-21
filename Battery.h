@@ -32,22 +32,33 @@ class Battery {
 		 * @param minVoltage is the voltage, expressed in millivolts, corresponding to an empty battery
 		 * @param maxVoltage is the voltage, expressed in millivolts, corresponding to a full battery
 		 * @param sensePin is the analog pin used for sensing the battery voltage
-		 * @param activationPin is the optional digital pin which will be turned HIGH or LOW before starting the battery sensing
-		 * @param activationMode is the optional value to set on the activationPin to enable battery sensing, defaults to LOW
-		 *            useful when using a resistor divider to save on battery consumption, but it can be changed to HIGH in case
-		 *            you are using a P-CH MOSFET or a PNP BJT
 		 */
-		Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin, uint8_t activationPin = 0xFF, uint8_t activationMode = LOW);
+		Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin);
 
 		/**
 		 * Initializes the library by optionally setting additional parameters.
 		 * To obtain the best results use a calibrated reference using the VoltageReference library or equivalent.
 		 * 
-		 * @param refVoltage is the board reference voltage, expressed in millivolts (defaults to 5000)
-		 * @param dividerRatio is the multiplier used to obtain the real battery voltage (defaults to 2.0)
+		 * @param refVoltage is the board reference voltage, expressed in millivolts
+		 * @param dividerRatio is the multiplier used to obtain the real battery voltage
 		 * @param mapFunction is a pointer to the function used to map the battery voltage to the remaining capacity percentage (defaults to linear mapping)
 		 */
-		void begin(uint16_t refVoltage = 5000, float dividerRatio = 2, mapFn_t = 0);
+		void begin(uint16_t refVoltage, float dividerRatio, mapFn_t = 0);
+
+		/**
+		 * Enables on-demand activation of the sensing circuit to limit battery consumption.
+		 *
+		 * @param activationPin is the pin which will be turned HIGH or LOW before starting the battery sensing
+		 * @param activationMode is the optional value to set on the activationPin to enable battery sensing, defaults to LOW
+		 *            useful when using a resistor divider to save on battery consumption, but it can be changed to HIGH in case
+		 *            you are using a P-CH MOSFET or a PNP BJT
+		 */
+		void onDemand(uint8_t activationPin, uint8_t activationMode = LOW);
+
+		/**
+		 * Activation pin value disabling the on-demand feature.
+		 */
+		static const uint8_t ON_DEMAND_DISABLE = 0xFF;
 
 		/**
 		 * Returns the current battery level as a number between 0 and 100, with 0 indicating an empty battery and 100 a

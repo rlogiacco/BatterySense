@@ -22,6 +22,9 @@ In reality, the relation between battery capacity and its voltage is better repr
   * [Higher than 5V, with external voltage regulator](#higher-than-5v-with-external-voltage-regulator)
   * [Higher than 5V, activated on demand](#higher-than-5v-activated-on-demand)
 - [Voltage divider ratio](#voltage-divider-ratio)
+- [Remaining capacity approximation](#remaining-capacity-approximation)
+  * [Improvable](#improvable)
+  * [Good enough](#good-enough)
 - [Examples](#examples)
   * [Single cell Li-Ion on 3.3V MCU](#single-cell-li-ion-on-33v-mcu)
   * [Double cell Li-Ion (2S) on 5V MCU](#double-cell-li-ion-2s-on-5v-mcu)
@@ -162,38 +165,97 @@ The *voltage divider total resistance*, made of `R1 + R2`, will determine the cu
 
 When determining the *ratio* don't stick with the resistors nominal values, instead, if possible, use a multimeter to actually measure their resistance so to improve your results: a `4.7kΩ` resistor could easily be a `4.75kΩ` in reality!
 
+## Remaining capacity approximation
+The `level` available functions aim at providing an approximation of the remaining battery capacity in percentage. This is not an easy task when you want to achieve reliable values and it is something the industry of mobile devices invests a decent amount of resources.
+When an accurate estimate is desireable the battery voltage is not the sole parameter you want to take into consideration:
+ * cell **chemistry** has a very high influence, obviously
+ * cells based on the same chemistry might produce pretty different results depending on the **production process**
+ * each chemistry has a different ideal operating **cell temperature**
+ * the rate you **draw current** from the battery influences the remaining capacity
+ * batteries are not everlasting: as the cell **age**s, the battery capacity gets reduced
+ * _and more_ 
+
+The library itself doesn't aim at providing accurate estimates, but what I consider _an improvable but good enough_ estimate.
+
+### Improvable
+The library can be configured to use a mapping function of your choice, given the function complies with the `mapFn_t` interface:
+
+```cpp
+uint8_t mapFunction(uint16_t voltage, uint16_t minVoltage, uint16_t maxVoltage)
+```
+
+To configure your personalized function you only have to provide a pointer to it during initialization:
+
+```cpp
+Battery batt = Battery(3000, 4200, SENSE_PIN);
+
+uint8_t myMapFunction(uint16_t voltage, uint16_t minVoltage, uint16_t maxVoltage) {
+  // your code here
+}
+
+
+void setup() {
+  batt.begin(3300, 1.47, &myMapFunction);
+}
+```
+
+> You are not limited in considering only the parameters listed in the function interface, meaning you can take into consideration the cell(s) temperature, current consumption or age: that's open to your requirements and circuitry.
+
+### Good enough
+After collecting a few data points on battery voltage vs. battery capacity, I've used the https://mycurvefit.com/ and https://www.desmos.com online tools to calculate the math functions best representing the data I've collected.
+
+![Mapping functions](https://github.com/rlogiacco/BatterySense/blob/master/map-fn.png?raw=true)
+
+> In the above plot I represent the battery percentage (Y axis) as a function of the difference between the current battery voltage and the minimum value (X axis): the graph represents a single cell Li-Ion / Li-Poly battery, with a voltage swing of 1200mV (from 3.0V to 4.2V).
+
+The library ships with three different implementations of mapping function: 
+
+ * _linear_ is the default one (dashed red), probably the least accurate but the easiest to understand. It's main drawback is, for most chemistries, it will very quickly go from 25-20% to 0%, meaning you have to select the `minVoltage` parameter for your battery accordingly. As an example, a typical Li-Ion battery having a 3V to 4.2V range, you want to specify a 3.3V configuration value as _minimum voltage_.
+ * _sigmoidal_ (in blue) is a good compromise between computational effort and approximation, modeled after the tipical discharge curve of Li-Ion and Li-Poly chemistries. It's more representative of the remaining charge on the lower end of the spectrum, meaning you can set the minimum voltage accordingly to the battery safe discharge limit (typically 3V for a Li-Ion or Li-Poly).
+ * _asymmetric sigmoidal_ (in green) is probably the best approximation when you only look at battery voltage, but it's more computational expensive compared to _sigmoidal_ function and, in most cases, it doesn't provide a great advantage over it's simmetric counterpart.
+
+I strongly encourage you to determine the function that best matches your particular battery chemistry/producer when you want to use this library in your product.
+
 ## Examples
 Here follow a few real case scenarios which can guide you in using this library.
 
 ### Single-cell Li-Ion on 3.3V MCU
-As an example, for a single cell Li-Ion battery (4.2V - 3.7V) powering a `3.3V MCU`, you'll need to use a voltage divider with a ratio no less than `1.3`. Considering only E6 resistors, you can use a `4.7kΩ` (R1) and a `10kΩ` (R2) to set a ratio of `1.47`: this allows to measure batteries with a maximum voltage of `4.85V`, well within the swing of a Li-Ion. It's a little too current hungry for my tastes in an *always-connected* configuration, but still ok. The minimum voltage to set is clearly the lowest safe value: if a Li-Ion is drained below `3.7V` the risk of permanent damage is high, so your code should look like:
+As an example, for a single cell Li-Ion battery (4.2V - 3.7V) powering a `3.3V MCU`, you'll need to use a voltage divider with a ratio no less than `1.3`. Considering only E6 resistors, you can use a `4.7kΩ` (R1) and a `10kΩ` (R2) to set a ratio of `1.47`: this allows to measure batteries with a maximum voltage of `4.85V`, well within the swing of a Li-Ion. It's a little too current hungry for my tastes in an *always-connected* configuration, but still ok. Considering the chemistry maps pretty well to our sigmoidal approximation function I'm going to set it accordingly along with the minimum voltage which lowest safe value clearly is 3.0V (if a Li-Ion is drained below `3.0V` the risk of permanent damage is high), so your code should look like:
 
 ```cpp
-Battery batt = Battery(3700, 4200, SENSE_PIN); // also specify an activationPin for on-demand configurations
+Battery batt = Battery(3000, 4200, SENSE_PIN);
 
 void setup() {
-  batt.begin(3300, 1.47);
+  // specify an activationPin & activationMode for on-demand configurations
+  //batt.onDemand(3, HIGH);
+  batt.begin(3300, 1.47, &sigmoidal);
 }
 ```
 
 ### Double cell Li-Ion (2S) on 5V MCU
-For a double cell Li-Ion battery (8.4V - 7.4V) powering a `5V MCU`, you'll need to use a voltage divider with a ratio no less than `1.68`: you can use a `6.8kΩ` (R1) and a `10kΩ` (R2) to set the ratio *precisely* at `1.68`, perfect for our `8.4V` battery pack. The circuit will continuously draw 0.5mA in an *always-connected* configuration, if you can live with that. As we don't want to ruin our battery pack we'll have to set the minimum voltage to `7.4V` to avoid risking of permanent damages, meaning your code should look like:
+For a double cell Li-Ion battery (8.4V - 7.4V) powering a `5V MCU`, you'll need to use a voltage divider with a ratio no less than `1.68`: you can use a `6.8kΩ` (R1) and a `10kΩ` (R2) to set the ratio *precisely* at `1.68`, perfect for our `8.4V` battery pack. The circuit will continuously draw 0.5mA in an *always-connected* configuration, if you can live with that. As we don't want to ruin our battery pack and we don't want to rush from 20% to empty in afew seconds, we'll have to set the minimum voltage to `7.4V` (with a _linear_ mapping) to avoid the risk of permanent damage, meaning your code should look like:
 
 ```cpp
-Battery batt = Battery(7400, 8400, SENSE_PIN); // also specify an activationPin for on-demand configurations
+Battery batt = Battery(7400, 8400, SENSE_PIN); 
 
 void setup() {
+  // specify an activationPin & activationMode for on-demand configurations
+  //batt.onDemand(3, HIGH);
   batt.begin(5000, 1.68);
 }
 ```
+
+> **NOTE**: I could have used the _sigmoidal_ approximation, as the chemistry fits pretty well on the curve, in which case a `7V` minimum voltage would have been a better configuration value.
 
 ### 9V Alkaline on 5V MCU
 Another classic example might be a single 9V Alkaline battery (9V - 6V) powering a `5V MCU`. In this case, you'll need to use a voltage divider with a ratio no less than `1.8` and, for sake of simplicity, we'll go for a nice round `2` ratio. Using a nice `10kΩ` both for R1 and R2 we'll be able to measure batteries with a maximum voltage of `10V` consuming only 0.45mA. The trick here is to determine when our battery should be considered empty: a 9V Alkaline, being a non-rechargeable one, can potentially go down to 0V, but it's hard our board can still be alive when this occurs. Assuming we are using a linear regulator to step down the battery voltage to power our board we'll have to account for the regulator voltage drop: assuming it's a `1.2V` drop, we might safely consider our battery empty when it reaches `6.2V` (5V + 1.2V), leading to the following code:
 
 ```cpp
-Battery batt = Battery(6200, 9000, SENSE_PIN); // also specify an activationPin for on-demand configurations
+Battery batt = Battery(6200, 9000, SENSE_PIN);
 
 void setup() {
+  // specify an activationPin & activationMode for on-demand configurations
+  //batt.onDemand(3, HIGH);
   batt.begin(5000, 2.0);
 }
 ```

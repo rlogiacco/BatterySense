@@ -206,7 +206,7 @@ After collecting a few data points on battery voltage vs. battery capacity, I've
 
 ![Mapping functions](https://github.com/rlogiacco/BatterySense/blob/master/map-fn.png?raw=true)
 
-> In the above plot I represent the battery percentage (Y axis) as a function of the difference between the current battery voltage and the minimum value (X axis): the graph represents a single cell Li-Ion / Li-Poly battery, with a voltage swing of 1200mV (from 3.0V to 4.2V).
+> In the above plot I represent the battery percentage (Y axis) as a function of the difference between the current battery voltage and the minimum value (X axis): the graph represents a battery with a voltage swing of 1200mV from full to empty, but the functions scale accordingly to the `minVoltage` and `maxVoltage` parameters.
 
 The library ships with three different implementations of mapping function: 
 

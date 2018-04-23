@@ -17,6 +17,7 @@ script:
   - arduino --verify --board ${BOARD} $PWD/examples/BetterApprox/BetterApprox.ino
   - arduino --verify --board ${BOARD} $PWD/examples/CustomRatio/CustomRatio.ino
   - arduino --verify --board ${BOARD} $PWD/examples/OnDemandDoubleLiIon/OnDemandDoubleLiIon.ino
+  - arduino --verify --board ${BOARD} $PWD/examples/RGBBatteryIndicator/RGBBatteryIndicator.ino
   
 notifications:
   email:

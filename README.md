@@ -1,8 +1,11 @@
+### &#x26A0; **IMPORTANT**
+ 
+> Please, for support requests use the [BatterySense Forum](https://arduinolibs.freeflarum.com/t/batterysense), running a search before submitting a new case: do not abuse the Github issue tracker.
+
 Battery Sense [![Build Status][travis-status]][travis]
 =============
 [travis]: https://travis-ci.org/rlogiacco/BatterySense
 [travis-status]: https://travis-ci.org/rlogiacco/BatterySense.svg?branch=master
-
 
 This is a simple Arduino library to monitor battery consumption of your battery powered projects, being LiPo, LiIon, NiCd or any other battery type, single or multiple cells: if it can power your Arduino you can monitor it!
 

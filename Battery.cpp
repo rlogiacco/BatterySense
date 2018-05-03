@@ -37,7 +37,8 @@ void Battery::begin(uint16_t refVoltage, float dividerRatio, mapFn_t mapFunction
 }
 
 void Battery::onDemand(uint8_t activationPin, uint8_t activationMode) {
-	if (this->activationPin < 0xFF) {
+	if (activationPin < 0xFF) {
+		this->activationPin = activationPin;
 		this->activationMode = activationMode;
 		pinMode(this->activationPin, OUTPUT);
 		digitalWrite(activationPin, !activationMode);

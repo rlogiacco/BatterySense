@@ -1,6 +1,6 @@
 ### &#x26A0; **IMPORTANT**
  
-> Please, for support requests use the [BatterySense Forum](https://arduinolibs.freeflarum.com/t/batterysense), running a search before submitting a new case: do not abuse the Github issue tracker.
+> Please, for support requests use [Arduino StackExchange](https://arduino.stackexchange.com/questions/tagged/battery-sense-lib), ensuring to add the `battery-sense-lib` tag to your question: do not abuse the Github issue tracker.
 
 Battery Sense [![Build Status][travis-status]][travis]
 =============
@@ -20,18 +20,18 @@ In reality, the relation between battery capacity and its voltage is better repr
 <!-- toc -->
 
 - [How to](#how-to)
-  * [Lesser than 5V, with voltage booster](#lesser-than-5v-with-voltage-booster)
-  * [Higher than 5V, with internal voltage regulator](#higher-than-5v-with-internal-voltage-regulator)
-  * [Higher than 5V, with external voltage regulator](#higher-than-5v-with-external-voltage-regulator)
-  * [Higher than 5V, activated on demand](#higher-than-5v-activated-on-demand)
+  - [Lesser than 5V, with voltage booster](#lesser-than-5v-with-voltage-booster)
+  - [Higher than 5V, with internal voltage regulator](#higher-than-5v-with-internal-voltage-regulator)
+  - [Higher than 5V, with external voltage regulator](#higher-than-5v-with-external-voltage-regulator)
+  - [Higher than 5V, activated on demand](#higher-than-5v-activated-on-demand)
 - [Voltage divider ratio](#voltage-divider-ratio)
 - [Remaining capacity approximation](#remaining-capacity-approximation)
-  * [Improvable](#improvable)
-  * [Good enough](#good-enough)
+  - [Improvable](#improvable)
+  - [Good enough](#good-enough)
 - [Examples](#examples)
-  * [Single cell Li-Ion on 3.3V MCU](#single-cell-li-ion-on-33v-mcu)
-  * [Double cell Li-Ion (2S) on 5V MCU](#double-cell-li-ion-2s-on-5v-mcu)
-  * [9V Alkaline on 5V MCU](#9v-alkaline-on-5v-mcu)
+  - [Single-cell Li-Ion on 3.3V MCU](#single-cell-li-ion-on-33v-mcu)
+  - [Double cell Li-Ion (2S) on 5V MCU](#double-cell-li-ion-2s-on-5v-mcu)
+  - [9V Alkaline on 5V MCU](#9v-alkaline-on-5v-mcu)
 
 <!-- tocstop -->
 

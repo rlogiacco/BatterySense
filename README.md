@@ -141,7 +141,9 @@ In the above schematics **SW** is a circuit which can connect or disconnect the 
   VDIV  GND
 ```
 
-[Circuit simulation](http://tinyurl.com/y6v37hmd)
+Feel free to refer to this [circuit simulation](http://tinyurl.com/ydbjfk67) to better understand how the circuit works and how much current draws when in operation.
+
+![Simulated Circuit](https://image.ibb.co/iob7AV/sense.gif)
 
 ## Voltage divider ratio
 Whenever your battery voltage is above your board voltage you need a voltage divider to constraint your readings within the 0-5V range allowed by your Arduino and you will have to provide this library with its *ratio*.

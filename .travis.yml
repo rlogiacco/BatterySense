@@ -25,25 +25,13 @@ notifications:
     on_failure: change
     
 env:
- - BOARD=arduino:avr:uno
-# - BOARD=arduino:avr:yun
-# - BOARD=arduino:avr:diecimila:cpu=atmega168
-# - BOARD=arduino:avr:diecimila:cpu=atmega328
- - BOARD=arduino:avr:nano:cpu=atmega168
- - BOARD=arduino:avr:nano:cpu=atmega328
- - BOARD=arduino:avr:mega:cpu=atmega1280
- - BOARD=arduino:avr:mega:cpu=atmega2560
-# - BOARD=arduino:avr:megaADK
- - BOARD=arduino:avr:leonardo
-# - BOARD=arduino:avr:micro
-# - BOARD=arduino:avr:esplora
-# - BOARD=arduino:avr:mini:cpu=atmega168
-# - BOARD=arduino:avr:mini:cpu=atmega328
-# - BOARD=arduino:avr:ethernet
-# - BOARD=arduino:avr:bt:cpu=atmega168
-# - BOARD=arduino:avr:bt:cpu=atmega328
-# - BOARD=arduino:avr:lilypad:cpu=atmega168
-# - BOARD=arduino:avr:lilypad:cpu=atmega328
-# - BOARD=arduino:avr:pro:cpu=atmega168
-# - BOARD=arduino:avr:pro:cpu=atmega328
-# - BOARD=arduino:sam:arduino_due_x
+  global:
+    - IDE_VERSION=1.6.6
+  matrix:
+    - BOARD=arduino:avr:uno IDE_VERSION=1.8.8
+    - BOARD=arduino:avr:uno
+    - BOARD=arduino:avr:nano:cpu=atmega168
+    - BOARD=arduino:avr:nano:cpu=atmega328
+    - BOARD=arduino:avr:mega:cpu=atmega1280
+    - BOARD=arduino:avr:mega:cpu=atmega2560
+    - BOARD=arduino:avr:leonardo

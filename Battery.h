@@ -16,8 +16,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _BATTERY_
-#define _BATTERY_
+#ifndef BATTERY_H_
+#define BATTERY_H_
 
 #include <Arduino.h>
 
@@ -126,4 +126,4 @@ static inline uint8_t asigmoidal(uint16_t voltage, uint16_t minVoltage, uint16_t
 static inline uint8_t linear(uint16_t voltage, uint16_t minVoltage, uint16_t maxVoltage) {
 	return (unsigned long)(voltage - minVoltage) * 100 / (maxVoltage - minVoltage);
 }
-#endif // _BATTERY_
+#endif // BATTERY_H_

@@ -18,7 +18,6 @@ In reality, the relation between battery capacity and its voltage is better repr
 ![Battery discharge curves at 750 mA](http://www.philohome.com/batteries/discharge-750.gif)
 
 <!-- toc -->
-
 - [How to](#how-to)
   - [Lesser than 5V, with voltage booster](#lesser-than-5v-with-voltage-booster)
   - [Higher than 5V, with internal voltage regulator](#higher-than-5v-with-internal-voltage-regulator)
@@ -32,7 +31,6 @@ In reality, the relation between battery capacity and its voltage is better repr
   - [Single-cell Li-Ion on 3.3V MCU](#single-cell-li-ion-on-33v-mcu)
   - [Double cell Li-Ion (2S) on 5V MCU](#double-cell-li-ion-2s-on-5v-mcu)
   - [9V Alkaline on 5V MCU](#9v-alkaline-on-5v-mcu)
-
 <!-- tocstop -->
 
 ## How to

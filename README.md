@@ -2,6 +2,7 @@
  
 > Please, before submitting a support request read carefully this README and check if an answer already exists among [previously answered questions](https://github.com/rlogiacco/BatterySense/issues?q=label:question): do not abuse of the Github issue tracker.
 
+<!-- omit in toc -->
 Battery Sense [![Build Status][travis-status]][travis]
 =============
 [travis]: https://travis-ci.org/rlogiacco/BatterySense

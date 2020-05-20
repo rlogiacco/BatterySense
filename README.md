@@ -125,19 +125,21 @@ If you have an unused pin on your Arduino it will be easy to limit this addition
                          +---------+
 ```
 
-In the above schematics **SW** is a circuit which can connect or disconnect the sensing circuit depending on the voltage on `ACT`: the most common and cheap circuit is made of a p-channel MOSFET *Q1*, a PNP transistor *Q2* a 1k-4.7k Ohm resistor *R3* and a 5k-20k Ohm resistor *R4*:
+In the above schematics **SW** is a circuit which can connect or disconnect the sensing circuit depending on the voltage on `ACT`: the most common and cheap circuit is made of a NPN transistor *Q1*, a p-channel MOSFET *Q2*, a 1k-4.7k Ohm resistor *R3* and a 5k-20k Ohm resistor *R4*:
 
 ```
-  BAT+
-    |
-    +----+
-    |    |
-    |   R4
-    |    |
-    Q1 --Q2-- R3 --- ACT
-    |    |
-    |    |
-  VDIV  GND
+                       BAT+
+                        |
+                  +-----+
+                  |     |
+                  R4    |
+                  |\    |
+   ACT --- R3 ---Q1 \-- Q2
+                  |     |
+                  |     |
+                 GND   VDIV
+                       to R1/R2/SENSE
+
 ```
 
 Feel free to refer to this [circuit simulation](http://tinyurl.com/ydbjfk67) to better understand how the circuit works and how much current draws when in operation.

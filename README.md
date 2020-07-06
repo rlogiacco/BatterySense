@@ -35,7 +35,7 @@ In reality, the relation between battery capacity and its voltage is better repr
 <!-- tocstop -->
 
 ## How to
-The library requires at least 1 analog pin (we will call this the `sense pin`) and no less than 2 bits of info on your battery: the voltage you will consider the minimum acceptable level, below which your project/product becomes unreliable and should be shut down, and the maximum voltage you can expect when the battery is fully charged.
+The library requires at least 1 analog pin (we will call this the `sense pin`) and no less than 2 pieces of info on your battery: the voltage you will consider the minimum acceptable level, below which your project/product becomes unreliable and should be shut down, and the maximum voltage you can expect when the battery is fully charged.
 
 Additionally, you can provide a second pin (either analog or digital) to activate the battery measurement circuit (we call it the `activation pin`), useful in all those situations where you can sacrifice a pin to further increase your battery duration.
 

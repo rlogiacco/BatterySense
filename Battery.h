@@ -33,7 +33,7 @@ class Battery {
 		 * @param maxVoltage is the voltage, expressed in millivolts, corresponding to a full battery
 		 * @param sensePin is the analog pin used for sensing the battery voltage
 		 */
-		Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin);
+		Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin = 0xFF);
 
 		/**
 		 * Initializes the library by optionally setting additional parameters.

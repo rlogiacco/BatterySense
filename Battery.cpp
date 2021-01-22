@@ -29,7 +29,10 @@ Battery::Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin) {
 void Battery::begin(uint16_t refVoltage, float dividerRatio, mapFn_t mapFunction) {
 	this->refVoltage = refVoltage;
 	this->dividerRatio = dividerRatio;
-	pinMode(this->sensePin, INPUT);
+	if (this->sensePin < 0xFF)
+	{
+		pinMode(this->sensePin, INPUT);
+	}
 	if (this->activationPin < 0xFF) {
 		pinMode(this->activationPin, OUTPUT);
 	}
@@ -46,7 +49,14 @@ void Battery::onDemand(uint8_t activationPin, uint8_t activationMode) {
 }
 
 uint8_t Battery::level() {
-	return this->level(this->voltage());
+	if (sensePin < 0xFF)
+	{
+		return this->level(this->voltage());
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 uint8_t Battery::level(uint16_t voltage) {

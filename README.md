@@ -241,10 +241,10 @@ void setup() {
 ```
 
 ### Double cell Li-Ion (2S) on 5V MCU
-For a double cell Li-Ion battery (8.4V - 7.4V) powering a `5V MCU`, you'll need to use a voltage divider with a ratio no less than `1.68`: you can use a `6.8kΩ` (R1) and a `10kΩ` (R2) to set the ratio *precisely* at `1.68`, perfect for our `8.4V` battery pack. The circuit will continuously draw 0.5mA in an *always-connected* configuration, if you can live with that. As we don't want to ruin our battery pack and we don't want to rush from 20% to empty in afew seconds, we'll have to set the minimum voltage to `7.4V` (with a _linear_ mapping) to avoid the risk of permanent damage, meaning your code should look like:
+For a double cell Li-Ion battery (8.4V - 7.4V) powering a `5V MCU`, you'll need to use a voltage divider with a ratio no less than `1.68`: you can use a `6.8kΩ` (R1) and a `10kΩ` (R2) to set the ratio *precisely* at `1.68`, perfect for our `8.4V` battery pack. The circuit will continuously draw 0.5mA in an *always-connected* configuration, if you can live with that. As we don't want to ruin our battery pack and we don't want to rush from 20% to empty in afew seconds, we'll have to set the minimum voltage to `6.8V` (with a _linear_ mapping) to avoid the risk of permanent damage, meaning your code should look like:
 
 ```cpp
-Battery batt = Battery(7400, 8400, SENSE_PIN); 
+Battery batt = Battery(6800, 8400, SENSE_PIN); 
 
 void setup() {
   // specify an activationPin & activationMode for on-demand configurations
@@ -253,7 +253,7 @@ void setup() {
 }
 ```
 
-> **NOTE**: I could have used the _sigmoidal_ approximation, as the chemistry fits pretty well on the curve, in which case a `7V` minimum voltage would have been a better configuration value.
+> **NOTE**: I could have used the _sigmoidal_ approximation, as the chemistry fits pretty well on the curve, in which case a `6V` minimum voltage would have been a better configuration value.
 
 ### 9V Alkaline on 5V MCU
 Another classic example might be a single 9V Alkaline battery (9V - 6V) powering a `5V MCU`. In this case, you'll need to use a voltage divider with a ratio no less than `1.8` and, for sake of simplicity, we'll go for a nice round `2` ratio. Using a nice `10kΩ` both for R1 and R2 we'll be able to measure batteries with a maximum voltage of `10V` consuming only 0.45mA. The trick here is to determine when our battery should be considered empty: a 9V Alkaline, being a non-rechargeable one, can potentially go down to 0V, but it's hard our board can still be alive when this occurs. Assuming we are using a linear regulator to step down the battery voltage to power our board we'll have to account for the regulator voltage drop: assuming it's a `1.2V` drop, we might safely consider our battery empty when it reaches `6.2V` (5V + 1.2V), leading to the following code:
@@ -267,3 +267,6 @@ void setup() {
   batt.begin(5000, 2.0);
 }
 ```
+
+
+> **NOTE**: Most `5V MCU` can actually continue to operate when receiving `4.8V` or even less: if you want to squeeze out as much energy as you can you can fine tune the low end, but also consider there is not much juice left when a battery voltage drops that much.

@@ -69,9 +69,15 @@ class Battery {
 
 		/**
 		 * Returns the current battery voltage in millivolts.
+		 * @param delay is the amount of milliseconds to wait to allow the ADC input voltage to stabilize (defaults to 2ms)
 		 */
-		uint16_t voltage();
+		uint16_t voltage(uint8_t delay = 2);
 
+		#if defined(ESP32)
+		void Battery::setADCResolution(uint8_t bits);
+		#else
+		static const uint16_t adc = 1024;
+		#endif
 	private:
 		uint16_t refVoltage;
 		uint16_t minVoltage;
@@ -81,6 +87,9 @@ class Battery {
 		uint8_t activationPin;
 		uint8_t activationMode;
 		mapFn_t mapFunction;
+		#if defined(ESP32)
+		uint16_t adc;
+		#else
 };
 
 //

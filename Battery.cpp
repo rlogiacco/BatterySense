@@ -24,6 +24,9 @@ Battery::Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin) {
 	this->activationPin = 0xFF;
 	this->minVoltage = minVoltage;
 	this->maxVoltage = maxVoltage;
+#if defined(ESP32)
+	this->adc = 4096;
+#endif
 }
 
 void Battery::begin(uint16_t refVoltage, float dividerRatio, mapFn_t mapFunction) {
@@ -59,16 +62,22 @@ uint8_t Battery::level(uint16_t voltage) {
 	}
 }
 
-uint16_t Battery::voltage() {
+uint16_t Battery::voltage(uint8_t delay) {
 	if (activationPin != 0xFF) {
 		digitalWrite(activationPin, activationMode);
 		delayMicroseconds(10); // copes with slow switching activation circuits
 	}
 	analogRead(sensePin);
-	delay(2); // allow the ADC to stabilize
-	uint16_t reading = analogRead(sensePin) * dividerRatio * refVoltage / 1024;
+	delay(delay); // allow the ADC to stabilize
+	uint16_t reading = (analogRead(sensePin) * dividerRatio * refVoltage) / adc;
 	if (activationPin != 0xFF) {
 		digitalWrite(activationPin, !activationMode);
 	}
 	return reading;
 }
+
+#if defined(ESP32)
+void Battery::setADCResolution(uint8_t bits) {
+	adc = 0x01 << bits;
+}
+#endif

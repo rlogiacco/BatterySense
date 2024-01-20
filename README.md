@@ -25,6 +25,8 @@ In reality, the relation between battery capacity and its voltage is better repr
   - [Higher than 5V, with external voltage regulator](#higher-than-5v-with-external-voltage-regulator)
   - [Higher than 5V, activated on demand](#higher-than-5v-activated-on-demand)
 - [Voltage divider ratio](#voltage-divider-ratio)
+- [ADC Resolution](#adc-resolution)
+  - [Variable Resolution](#variable-resolution)
 - [Remaining capacity approximation](#remaining-capacity-approximation)
   - [Improvable](#improvable)
   - [Good enough](#good-enough)
@@ -172,6 +174,23 @@ You can use [this nice website](http://www.ohmslawcalculator.com/voltage-divider
 The *voltage divider total resistance*, made of `R1 + R2`, will determine the current drawn from your battery by the sensing circuit: lower is the total resistance and more accurate are your readings, higher the resistance and less current is drawn from your battery ([Ohm's law](http://www.ohmslawcalculator.com/ohms-law-calculator) rulez!). My suggestion is to keep this value within 20k-22k Ohm when using an *always-connected* circuit and under 10k Ohm if you use an *on-demand* configuration.
 
 When determining the *ratio* don't stick with the resistors nominal values, instead, if possible, use a multimeter to actually measure their resistance so to improve your results: a `4.7kΩ` resistor could easily be a `4.75kΩ` in reality!
+
+## ADC Resolution
+Starting from version `1.2.0` the library supports ADC resolutions other than the standard `10bits` of classic Arduino boards.
+The library attempts to determine if the board you are building for does support a different ADC resolution and it adopts the default value for such boards, but in case your board is not supported, please:
+  1. verify you are using the latest version of this library
+  2. open an issue specifing the board you are building for and the expected ADC resolution
+  3. temporarily define a macro variable `ADC_RESOLUTION` in your code with the number of bits your ADC uses (eq. `#define ADC_RESOLUTION 12`) **before** importing the library header file
+
+```cpp
+#define ADC_RESOLUTION 12
+#include 'Battery.h' 
+```
+
+The currently maximum supported value for the ADC resolution is `15`: specifying a value greater than that will break the library behaviour.
+
+### Variable Resolution
+Some boards support the ability to change the ADC resolution programmatically: if this is your case and your code specifies a non default value, you **must** specify the `ADC_RESOLUTION` macro variable accordingly.
 
 ## Remaining capacity approximation
 The `level` available functions aim at providing an approximation of the remaining battery capacity in percentage. This is not an easy task when you want to achieve reliable values and it is something the industry of mobile devices invests a decent amount of resources.

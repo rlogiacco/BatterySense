@@ -24,9 +24,6 @@ Battery::Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin) {
 	this->activationPin = 0xFF;
 	this->minVoltage = minVoltage;
 	this->maxVoltage = maxVoltage;
-#if defined(ESP32)
-	this->adc = 4096;
-#endif
 }
 
 void Battery::begin(uint16_t refVoltage, float dividerRatio, mapFn_t mapFunction) {
@@ -75,9 +72,3 @@ uint16_t Battery::voltage(uint8_t delay) {
 	}
 	return reading;
 }
-
-#if defined(ESP32)
-void Battery::setADCResolution(uint8_t bits) {
-	adc = 0x01 << bits;
-}
-#endif

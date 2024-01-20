@@ -19,6 +19,16 @@
 #ifndef BATTERY_H_
 #define BATTERY_H_
 
+#ifndef ADC_RESOLUTION
+#ifdef (ESP32)
+#define ADC_RESOLUTION 12
+#endif // ESP32
+#endif // ADC_RESOLUTION
+
+#ifndef ADC_RESOLUTION
+#define ADC_RESOLUTION 10
+#endif // ADC_RESOLUTION
+
 #include <Arduino.h>
 
 typedef uint8_t(*mapFn_t)(uint16_t, uint16_t, uint16_t);
@@ -73,11 +83,8 @@ class Battery {
 		 */
 		uint16_t voltage(uint8_t delay = 2);
 
-		#if defined(ESP32)
-		void Battery::setADCResolution(uint8_t bits);
-		#else
-		static const uint16_t adc = 1024;
-		#endif
+		static const uint16_t adc = 0x01 << ADC_RESOLUTION;
+
 	private:
 		uint16_t refVoltage;
 		uint16_t minVoltage;
@@ -87,9 +94,6 @@ class Battery {
 		uint8_t activationPin;
 		uint8_t activationMode;
 		mapFn_t mapFunction;
-		#if defined(ESP32)
-		uint16_t adc;
-		#else
 };
 
 //

@@ -19,16 +19,6 @@
 #ifndef BATTERY_H_
 #define BATTERY_H_
 
-#ifndef ADC_RESOLUTION
-#ifdef (ESP32)
-#define ADC_RESOLUTION 12
-#endif // ESP32
-#endif // ADC_RESOLUTION
-
-#ifndef ADC_RESOLUTION
-#define ADC_RESOLUTION 10
-#endif // ADC_RESOLUTION
-
 #include <Arduino.h>
 
 typedef uint8_t(*mapFn_t)(uint16_t, uint16_t, uint16_t);
@@ -42,8 +32,9 @@ class Battery {
 		 * @param minVoltage is the voltage, expressed in millivolts, corresponding to an empty battery
 		 * @param maxVoltage is the voltage, expressed in millivolts, corresponding to a full battery
 		 * @param sensePin is the analog pin used for sensing the battery voltage
+		 * @param adcBits is the number of bits the ADC uses (defaults to 10)
 		 */
-		Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin);
+		Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin, uint8_t adcBits = 10);
 
 		/**
 		 * Initializes the library by optionally setting additional parameters.
@@ -83,7 +74,7 @@ class Battery {
 		 */
 		uint16_t voltage(uint8_t delay = 2);
 
-		static const uint16_t adc = 0x01 << ADC_RESOLUTION;
+		static 
 
 	private:
 		uint16_t refVoltage;
@@ -94,6 +85,8 @@ class Battery {
 		uint8_t activationPin;
 		uint8_t activationMode;
 		mapFn_t mapFunction;
+
+		const uint16_t adc;
 };
 
 //

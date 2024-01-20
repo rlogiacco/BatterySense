@@ -184,7 +184,7 @@ The library attempts to determine if the board you are building for does support
 
 ```cpp
 #define ADC_RESOLUTION 12
-#include 'Battery.h' 
+#include <Battery.h>
 ```
 
 The currently maximum supported value for the ADC resolution is `15`: specifying a value greater than that will break the library behaviour.

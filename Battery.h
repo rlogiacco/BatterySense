@@ -74,8 +74,6 @@ class Battery {
 		 */
 		uint16_t voltage(uint8_t delay = 2);
 
-		static 
-
 	private:
 		uint16_t refVoltage;
 		uint16_t minVoltage;

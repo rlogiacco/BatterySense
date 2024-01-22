@@ -33,7 +33,7 @@ In reality, the relation between battery capacity and its voltage is better repr
   - [Single-cell Li-Ion on 3.3V MCU](#single-cell-li-ion-on-33v-mcu)
   - [Double cell Li-Ion (2S) on 5V MCU](#double-cell-li-ion-2s-on-5v-mcu)
   - [9V Alkaline on 5V MCU](#9v-alkaline-on-5v-mcu)
-  - [Double cell Li-Ion (2P) on demand for 3.3V MCU with 12 bits ADC](#double-cell-li-ion-2p-on-demand-for-35v-mcu-with-12-bits-adc)
+  - [Double cell Li-Ion (2P) on demand for 3.3V MCU with 12 bits ADC](#double-cell-li-ion-2p-on-demand-for-33v-mcu-with-12-bits-adc)
 <!-- tocstop -->
 
 ## How to
@@ -186,7 +186,9 @@ So, in case your board ADC provides an ADC with a resolution higher than 10 bits
 Battery batt = Battery(3000, 4200, SENSE_PIN, 12);
 ```
 
-The currently maximum supported value for the ADC resolution is `15`: specifying a value greater than that will break the library behaviour.
+> ⚠ **IMPORTANT** ⚠
+> 
+> The currently maximum supported value for the ADC resolution is `15`: specifying a value greater than that will break the library behaviour.
 
 ## Remaining capacity approximation
 The `level` available functions aim at providing an approximation of the remaining battery capacity in percentage. This is not an easy task when you want to achieve reliable values and it is something the industry of mobile devices invests a decent amount of resources.

@@ -13,6 +13,7 @@ Battery battery(3400, 4200, A0, 12);
 void setup() {
 	Serial.begin(9600);
 	pinMode(SENSE_PIN, INPUT);
+	analogReadResolution(12); // switches ADC resolution to 12 bits
 	while (!Serial);
 	battery.begin(3300, (R1 + R2) / R2, &asigmoidal);
 	battery.onDemand(SENSE_PIN, HIGH);

@@ -309,6 +309,7 @@ Having two batteries in parallel doesn't change anything in terms of provided vo
 Battery batt = Battery(4200, 3300, SENSE_PIN, ADC_RESOLUTION);
 
 void setup() {
+ 	analogReadResolution(ADC_RESOLUTION);
   batt.onDemand(ACTIVATION_PIN, HIGH);
   batt.begin(3300, 1.47, &asigmoidal);
 }

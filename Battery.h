@@ -32,8 +32,9 @@ class Battery {
 		 * @param minVoltage is the voltage, expressed in millivolts, corresponding to an empty battery
 		 * @param maxVoltage is the voltage, expressed in millivolts, corresponding to a full battery
 		 * @param sensePin is the analog pin used for sensing the battery voltage
+		 * @param adcBits is the number of bits the ADC uses (defaults to 10)
 		 */
-		Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin);
+		Battery(uint16_t minVoltage, uint16_t maxVoltage, uint8_t sensePin, uint8_t adcBits = 10);
 
 		/**
 		 * Initializes the library by optionally setting additional parameters.
@@ -69,8 +70,9 @@ class Battery {
 
 		/**
 		 * Returns the current battery voltage in millivolts.
+		 * @param delay is the amount of milliseconds to wait to allow the ADC input voltage to stabilize (defaults to 2ms)
 		 */
-		uint16_t voltage();
+		uint16_t voltage(uint8_t delay = 2);
 
 	private:
 		uint16_t refVoltage;
@@ -81,6 +83,8 @@ class Battery {
 		uint8_t activationPin;
 		uint8_t activationMode;
 		mapFn_t mapFunction;
+
+		const uint16_t adc;
 };
 
 //

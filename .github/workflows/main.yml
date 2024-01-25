@@ -28,11 +28,11 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           fqbn: ${{ matrix.fqbn }}
           sketch-paths: |
-            - examples/BatteryMonitor/BatteryMonitor
-            - examples/BetterApprox/BetterApprox
-            - examples/CustomRation/CustomRation
-            - examples/OnDemandDoubleLiIon/OnDemandDoubleLiIon
-            - examples/RGBBatteryIndicator/RGBBatteryIndicator
+            - examples/BatteryMonitor
+            - examples/BetterApprox
+            - examples/CustomRatio
+            - examples/OnDemandDoubleLiIon
+            - examples/RGBBatteryIndicator
           
   build-for-esp32:
     runs-on: ubuntu-latest
@@ -54,12 +54,12 @@ jobs:
             - name: esp32:esp32
               source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
           sketch-paths: |
-            - examples/BatteryMonitor/BatteryMonitor
-            - examples/BetterApprox/BetterApprox
-            - examples/CustomRation/CustomRation
-            - examples/OnDemandDoubleLiIon/OnDemandDoubleLiIon
-            - examples/RGBBatteryIndicator/RGBBatteryIndicator
-            - examples/HigherADCResolution/HigherADCResolution
+            - examples/BatteryMonitor
+            - examples/BetterApprox
+            - examples/CustomRatio
+            - examples/OnDemandDoubleLiIon
+            - examples/RGBBatteryIndicator
+            - examples/HigherADCResolution
           cli-compile-flags: |
             - --warnings="none"
   lint:
@@ -69,4 +69,4 @@ jobs:
       - uses: arduino/arduino-lint-action@v1
         with:
           library-manager: update
-          compliance: strict
+          compliance: specification

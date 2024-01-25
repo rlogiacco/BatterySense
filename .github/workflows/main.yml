@@ -1,0 +1,72 @@
+name: Compile Examples
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        fqbn:
+          - arduino:avr:uno
+          - arduino:avr:nano:cpu=atmega168
+          - arduino:avr:nano:cpu=atmega328
+          - arduino:avr:mega:cpu=atmega1280
+          - arduino:avr:mega:cpu=atmega2560
+          - arduino:avr:leonardo
+          - arduino:samd:nano_33_iot
+          - arduino:megaavr:uno2018:mode=on
+          - arduino:mbed:nano33ble
+          - arduino:mbed_nano:nanorp2040connect
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/compile-sketches@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fqbn: ${{ matrix.fqbn }}
+          sketch-paths: |
+            - examples/BatteryMonitor/BatteryMonitor
+            - examples/BetterApprox/BetterApprox
+            - examples/CustomRation/CustomRation
+            - examples/OnDemandDoubleLiIon/OnDemandDoubleLiIon
+            - examples/RGBBatteryIndicator/RGBBatteryIndicator
+          
+  build-for-esp32:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        fqbn:
+          - esp32:esp32:esp32
+          - esp32:esp32:esp32s3
+          - esp32:esp32:esp32c3
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/compile-sketches@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fqbn: ${{ matrix.fqbn }}
+          platforms: |
+            - name: esp32:esp32
+              source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+          sketch-paths: |
+            - examples/BatteryMonitor/BatteryMonitor
+            - examples/BetterApprox/BetterApprox
+            - examples/CustomRation/CustomRation
+            - examples/OnDemandDoubleLiIon/OnDemandDoubleLiIon
+            - examples/RGBBatteryIndicator/RGBBatteryIndicator
+            - examples/HigherADCResolution/HigherADCResolution
+          cli-compile-flags: |
+            - --warnings="none"
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/arduino-lint-action@v1
+        with:
+          library-manager: update
+          compliance: strict

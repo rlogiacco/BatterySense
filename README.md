@@ -7,7 +7,7 @@
   Battery Sense
   <a href=https://github.com/rlogiacco/BatterySense/stargazers><img alt="GitHub stars" src=https://img.shields.io/github/stars/rlogiacco/BatterySense.svg?style=social&label=Star /></a>
   <a href=https://github.com/rlogiacco/BatterySense/network><img alt="GitHub forks" src=https://img.shields.io/github/forks/rlogiacco/BatterySense.svg?style=social&label=Fork /></a>
-  <a href=https://twitter.com/intent/tweet?text=Roll%20your%20data%20on%20embedded%20devices%20easily!&url=https://github.com/rlogiacco/BatterySense&hashtags=IoT,Arduino,ESP8266,ESP32><img alt="Tweet" src=https://img.shields.io/twitter/url/http/shields.io.svg?style=social /></a>
+  <a href=https://twitter.com/intent/tweet?text=Sense%20your%20battery%20on%20embedded%20devices%20easily!&url=https://github.com/rlogiacco/BatterySense&hashtags=IoT,Arduino,ESP8266,ESP32><img alt="Tweet" src=https://img.shields.io/twitter/url/http/shields.io.svg?style=social /></a>
 </h1>
 
 [![GitHub version](https://img.shields.io/github/release/rlogiacco/BatterySense.svg)](https://github.com/rlogiacco/BatterySense/releases)

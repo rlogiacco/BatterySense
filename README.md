@@ -1,12 +1,22 @@
-### &#x26A0; **IMPORTANT**
+### ⚠ **IMPORTANT**
  
 > Please, before submitting a support request read carefully this README and check if an answer already exists among [previously answered questions](https://github.com/rlogiacco/BatterySense/discussions): do not abuse of the Github issue tracker.
 
 <!-- omit in toc -->
-Battery Sense [![Build Status][travis-status]][travis]
-=============
-[travis]: https://travis-ci.org/rlogiacco/BatterySense
-[travis-status]: https://travis-ci.org/rlogiacco/BatterySense.svg?branch=master
+<h1>
+  Battery Sense
+  <a href=https://github.com/rlogiacco/BatterySense/stargazers><img alt="GitHub stars" src=https://img.shields.io/github/stars/rlogiacco/BatterySense.svg?style=social&label=Star /></a>
+  <a href=https://github.com/rlogiacco/BatterySense/network><img alt="GitHub forks" src=https://img.shields.io/github/forks/rlogiacco/BatterySense.svg?style=social&label=Fork /></a>
+  <a href=https://twitter.com/intent/tweet?text=Roll%20your%20data%20on%20embedded%20devices%20easily!&url=https://github.com/rlogiacco/BatterySense&hashtags=IoT,Arduino,ESP8266,ESP32><img alt="Tweet" src=https://img.shields.io/twitter/url/http/shields.io.svg?style=social /></a>
+</h1>
+
+[![GitHub version](https://img.shields.io/github/release/rlogiacco/BatterySense.svg)](https://github.com/rlogiacco/BatterySense/releases)
+[![GitHub download](https://img.shields.io/github/downloads/rlogiacco/BatterySense/total.svg)](https://github.com/rlogiacco/BatterySense/releases/latest)
+[![GitHub stars](https://img.shields.io/github/stars/rlogiacco/BatterySense.svg)](https://github.com/rlogiacco/BatterySense/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/rlogiacco/BatterySense.svg)](https://github.com/rlogiacco/BatterySense/issues)
+[![Build Status](https://github.com/rlogiacco/BatterySense/actions/workflows/main.yml/badge.svg)](https://github.com/rlogiacco/BatterySense/actions/workflows/main.yml)
+[![License](https://img.shields.io/badge/license-LGPL%203-blue.svg)](https://github.com/rlogiacco/BatterySense/blob/master/LICENSE)
+
 
 This is a simple Arduino library to monitor the battery consumption of your battery-powered projects, being LiPo, LiIon, NiCd or any other battery type, single or multiple cells: if it can power your Arduino you can monitor it!
 

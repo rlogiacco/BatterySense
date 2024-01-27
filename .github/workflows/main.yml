@@ -6,7 +6,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         fqbn:
@@ -20,7 +19,6 @@ jobs:
           - arduino:megaavr:uno2018:mode=on
           - arduino:mbed:nano33ble
           - arduino:mbed_nano:nanorp2040connect
-
     steps:
       - uses: actions/checkout@v4
       - uses: arduino/compile-sketches@v1
@@ -36,14 +34,12 @@ jobs:
           
   build-for-esp32:
     runs-on: ubuntu-latest
-    
     strategy:
       matrix:
         fqbn:
           - esp32:esp32:esp32
           - esp32:esp32:esp32s3
           - esp32:esp32:esp32c3
-
     steps:
       - uses: actions/checkout@v4
       - uses: arduino/compile-sketches@v1
@@ -62,6 +58,7 @@ jobs:
             - examples/HigherADCResolution
           cli-compile-flags: |
             - --warnings="none"
+            
   lint:
     runs-on: ubuntu-latest
     steps:

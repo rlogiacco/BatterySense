@@ -1,0 +1,24 @@
+name: Publish Documentation
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repo
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Generate Doxy docs
+      - name: Doxygen Action
+        uses: mattnotmitt/doxygen-action@1.9.2
+      # Publish to GitHub Pages
+      - name: Publish
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/html

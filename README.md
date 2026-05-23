@@ -26,7 +26,7 @@ The big assumption here is that battery capacity is linearly correlated to its v
 
 In reality, the relation between battery capacity and its voltage is better represented by a curve and there are many factors affecting it: current drawn, temperature, age, etc...
 
-![Battery discharge curves at 750 mA](http://www.philohome.com/batteries/discharge-750.gif)
+![Battery discharge curves at 750 mA](https://www.philohome.com/batteries/discharge-750.gif)
 
 <!-- toc -->
 - [How to](#how-to)
@@ -239,7 +239,7 @@ void setup() {
 ### Good enough
 After collecting a few data points on battery voltage vs. battery capacity, I've used the https://mycurvefit.com/ and https://www.desmos.com online tools to calculate the math functions best representing the data I've collected.
 
-![Mapping functions](https://github.com/rlogiacco/BatterySense/blob/master/map-fn.png?raw=true)
+![Mapping functions](doc/map-fn.png)
 
 > In the above plot I represent the battery percentage (Y axis) as a function of the difference between the current battery voltage and the minimum value (X axis): the graph represents a battery with a voltage swing of 1200mV from full to empty, but the functions scale accordingly to the `minVoltage` and `maxVoltage` parameters.
 

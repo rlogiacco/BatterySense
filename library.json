@@ -1,0 +1,83 @@
+{
+    "name": "Battery Sense",
+    "version": "1.3.0",
+    "description": "Arduino battery sensing library. Monitor battery charge level in multiple configurations.",
+    "keywords": [
+        "battery",
+        "sense",
+        "monitoring",
+        "arduino"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rlogiacco/BatterySense"
+    },
+    "authors": [
+        {
+            "name": "Roberto Lo Giacco",
+            "email": "rlogiacco@gmail.com",
+            "maintainer": true
+        }
+    ],
+    "license": "LGPL-3.0",
+    "frameworks": [
+        "arduino"
+    ],
+    "platforms": [
+        "*"
+    ],
+    "headers": [
+        "Battery.h"
+    ],
+    "examples": [
+        {
+            "name": "BatteryMonitor",
+            "base": "examples/BatteryMonitor",
+            "files": [
+                "BatteryMonitor.ino"
+            ]
+        },
+        {
+            "name": "BetterApprox",
+            "base": "examples/BetterApprox",
+            "files": [
+                "BetterApprox.ino"
+            ]
+        },
+        {
+            "name": "CustomRatio",
+            "base": "examples/CustomRatio",
+            "files": [
+                "CustomRatio.ino"
+            ]
+        },
+        {
+            "name": "HigherADCResolution",
+            "base": "examples/HigherADCResolution",
+            "files": [
+                "HigherADCResolution.ino"
+            ]
+        },
+        {
+            "name": "HigherADCResolution",
+            "base": "examples/HigherADCResolution",
+            "files": [
+                "HigherADCResolution.ino"
+            ]
+        },
+        {
+            "name": "OnDemandDoubleLiIon",
+            "base": "examples/OnDemandDoubleLiIon",
+            "files": [
+                "OnDemandDoubleLiIon.ino"
+            ]
+        },
+        {
+            "name": "RGBBatteryIndicator",
+            "base": "examples/RGBBatteryIndicator",
+            "files": [
+                "RGBBatteryIndicator.ino"
+            ]
+        }
+    ]
+}
